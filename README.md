@@ -15,17 +15,11 @@ A custom linear layer replaces `torch.nn.Linear`. In addition to the standard `w
 During the forward pass:
 
 1. `gate_scores` are passed through a **Sigmoid** to produce gates in `(0, 1)`:
-   ```
    gates = sigmoid(gate_scores)
-   ```
 2. Weights are element-wise multiplied by their corresponding gate:
-   ```
    pruned_weight = weight * gates
-   ```
 3. The standard linear operation is applied using these pruned weights:
-   ```
    output = pruned_weight @ x.T + bias
-   ```
 
 Gradients flow correctly through both `weight` and `gate_scores` via standard autograd & no special tricks needed since sigmoid is differentiable everywhere.
 
@@ -37,15 +31,11 @@ Gradients flow correctly through both `weight` and `gate_scores` via standard au
 
 Training uses a composite loss:
 
-```
 Total Loss = CrossEntropyLoss + λ × SparsityLoss
-```
 
 The **SparsityLoss** is the mean of all gate values across every `PrunableLinear` layer:
 
-```
 SparsityLoss = mean({ sigmoid(gate_scores) for all PrunableLinear layers })
-```
 
 #### Why does L1 on sigmoid gates encourage sparsity?
 
@@ -104,22 +94,12 @@ This bimodal-like shape (spike at 0 + surviving tail) is the hallmark of a succe
 
 ---
 
-## Repository Structure
-
-```
-.
-├── Tredence_Case_Study.ipynb   # Full implementation notebook
-└── REPORT.md                   # This report
-```
-
 ## Requirements
 
-```
 torch
 torchvision
 tqdm
 matplotlib
-```
 
 ## How to Run
 
