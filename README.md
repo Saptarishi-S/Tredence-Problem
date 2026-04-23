@@ -37,3 +37,5 @@ Models were trained for 10 epochs on CIFAR-10 using a three-layer MLP (`3072 →
 - **Sparsity scales strongly with λ.** Going from λ = 0.1 to λ = 2.0 raises the fraction of pruned gates from ~14% to ~79%, confirming that the L1-style penalty effectively drives gates toward zero.
 - **Accuracy is remarkably stable.** Despite losing nearly 80% of its effective weights at λ = 2.0, the model matches — and marginally exceeds — the accuracy of the least-sparse model. This suggests the network contains substantial redundancy, and the regularization forces it to discover a more compact, efficient representation.
 - **Best accuracy at highest sparsity (λ = 2.0, 57.07%).** The slight accuracy gain at higher λ is likely due to a mild regularization effect on the weights themselves (inactive gates prevent overfitting on noisy weight directions), though the differences are small enough to be within noise over a single run.
+
+![Distribution of Gate Values (Best Model)](download.png)
